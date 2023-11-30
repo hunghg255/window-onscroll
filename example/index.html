@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <link href="http://gmpg.org/xfn/11" rel="profile" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <title>Window Scroll Manager Demo</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-size: 10px;
+      }
+
+      @media (min-width: 1500px) {
+        html {
+          font-size: 12px;
+        }
+      }
+
+      @media (min-width: 2000px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
+      @media (min-width: 2500px) {
+        html {
+          font-size: 15px;
+        }
+      }
+
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background: #f3f3f0;
+        height: 300vh;
+        font-size: 1.8rem;
+      }
+
+      .ScrollPosition {
+        position: fixed;
+        height: 22rem;
+        width: 100%;
+        bottom: 4rem;
+        text-align: center;
+      }
+
+      @media (min-width: 60rem) {
+        .ScrollPosition {
+          top: 50%;
+          margin-top: -11rem;
+          bottom: auto;
+        }
+      }
+
+      .ScrollPosition-content {
+        position: relative;
+        z-index: 10;
+        line-height: 2rem;
+        height: 12rem;
+        margin-top: 5rem;
+      }
+
+      .ScrollPosition-value {
+        font-size: 8rem;
+        position: relative;
+        z-index: 10;
+        line-height: 1;
+        font-weight: 300;
+      }
+
+      .ScrollPosition-rotate {
+        background: #fff;
+        border: 1px solid #000;
+        height: 22rem;
+        left: 50%;
+        margin-left: -11rem;
+        position: absolute;
+        top: 0;
+        width: 22rem;
+        z-index: 0;
+      }
+
+      .Content {
+        margin: 0 auto;
+        max-width: 50rem;
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+
+      h1 {
+        font-weight: normal;
+        font-size: 3.6rem;
+        line-height: 4rem;
+        margin-bottom: 2rem;
+      }
+
+      .Links {
+        font-size: 1.8rem;
+      }
+
+      .Links a {
+        border-bottom: 1px solid transparent;
+        color: #e54d42;
+        text-decoration: none;
+        transition: border 250ms;
+      }
+
+      .Links a:hover {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="Content">
+      <h1>Window scroll manager demo</h1>
+      <div class="Links">
+        <a href="https://hung.thedev.id">My Blog</a> &bull;
+        <a href="https://github.com/hunghg255/window-onscroll">GitHub</a> &bull;
+        <a href="https://www.npmjs.com/package/window-onscroll">npm</a>
+      </div>
+    </div>
+
+    <div class="ScrollPosition">
+      <div class="ScrollPosition-rotate"></div>
+      <div class="ScrollPosition-content">
+        <div>You scrolled</div>
+        <span class="ScrollPosition-value">0</span>
+        <div>px</div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/window-onscroll/dist/esm/index.js"></script>
+    <script>
+      var sm = new ScrollManager();
+
+      var valueDiv = document.querySelector('.ScrollPosition-value');
+      var rotateDiv = document.querySelector('.ScrollPosition-rotate');
+
+      window.addEventListener('window-onscroll', function (e) {
+        requestAnimationFrame(function () {
+          valueDiv.innerHTML = parseInt(e.detail.scrollPositionY, 10);
+          rotateDiv.style.transform = 'rotate(' + e.detail.scrollPositionY / 2 + 'deg)';
+        });
+      });
+    </script>
+
+    <!-- <script type="module">
+      import ScrollManager from '../dist/cjs/index.js';
+      var sm = new ScrollManager();
+
+      var valueDiv = document.querySelector('.ScrollPosition-value');
+      var rotateDiv = document.querySelector('.ScrollPosition-rotate');
+
+      window.addEventListener('window-onscroll', function (e) {
+        requestAnimationFrame(function () {
+          valueDiv.innerHTML = parseInt(e.detail.scrollPositionY, 10);
+          rotateDiv.style.transform = 'rotate(' + e.detail.scrollPositionY / 2 + 'deg)';
+        });
+      });
+    </script> -->
+  </body>
+</html>
